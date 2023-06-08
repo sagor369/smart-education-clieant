@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Title from "../../Shared/PageTitle/Title";
 import { useForm } from "react-hook-form";
-import { FaEyeSlash, FaEye } from "react-icons/fa";
+import { FaEyeSlash, FaEye, FaGoogle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [open, setOpen]= useState(false)
@@ -125,6 +126,13 @@ const Login = () => {
                 />
               </div>
             </form>
+            <p className="pl-6"><small>create a new account <Link to='/register' className="text-blue-500">Register</Link></small></p>
+            <div className="divider">OR</div>
+            <div className="bg-yellow-300 rounded-b-2xl flex justify-center items-center p-4 ">
+              <button>
+              <FaGoogle className="w-10 h-10"/>
+              </button>
+            </div>
           </div>
         </div>
       </div>
