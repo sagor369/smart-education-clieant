@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.menu a.active {
+    color: red;
+  }
+
+.menu a {
+   
+    background-color: transparent;
+    font-size: 20px;
+  }
+
+  .banner {
+    background-image: url(./assets/banner.jpg);
+  }
