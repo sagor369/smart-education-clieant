@@ -11,7 +11,9 @@ const Register = () => {
   const { register, handleSubmit,formState: { errors } } = useForm();
 
   const handaleLogin = (data) => {
-    const formData = new FormData()
+    // ToDo form fairbase added 
+    
+    // const formData = new FormData()
 
     console.log(data);
   };
