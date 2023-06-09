@@ -1,6 +1,6 @@
 
 const Items = ({item}) => {
-    const {className, description ,image, instructorName,price    } =item
+    const {className, description ,image, instructorName,price, seats } =item
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <figure>
@@ -16,7 +16,7 @@ const Items = ({item}) => {
         <p>{instructorName}</p>
         <div className="card-actions justify-between">
           <div className="badge badge-outline">Price : ${price}</div>
-          <div className="badge badge-outline">Products</div>
+          <div className="badge badge-outline">Total Seats : {seats}</div>
         </div>
         <p>{description}</p>
         <div className="card-actions">

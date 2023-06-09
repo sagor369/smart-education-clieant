@@ -1,8 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import Title from "../../Shared/PageTitle/Title";
-import Items from "../../Shared/Items/Items";
+import { useQuery } from '@tanstack/react-query';
+import Items from '../../Shared/Items/Items';
 
-const Class = () => {
+const AllClass = () => {
     const {  data: classes=[] } = useQuery(['class'], async()=>{
         const res = await fetch('http://localhost:5000/populer')
         const result =res.json()
@@ -10,17 +9,17 @@ const Class = () => {
     })
     return (
         <div>
-            <Title title='Populer Classes '></Title>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {
-                    classes.slice(0,5).map(data => <Items
+                    classes.map(data => <Items
                     key={data._id}
                     item={data}
                     ></Items>)
                 }
             </div>
+            
         </div>
     );
 };
 
-export default Class;
+export default AllClass;
