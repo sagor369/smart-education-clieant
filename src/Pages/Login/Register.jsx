@@ -3,20 +3,23 @@ import Title from "../../Shared/PageTitle/Title";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Navbar from "../../Shared/Header/Navbar";
+import Footer from "../../Shared/Footer/Footer";
+import useAuth from "../../Hooks/useAuth";
 
 const Register = () => {
+  
+  const {creatUser, googleUser} = useAuth()
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [disable, setDisable] = useState(true);
-  const { register, handleSubmit,formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handaleLogin = (data) => {
-    // ToDo form fairbase added 
-    
-    // const formData = new FormData()
-
-    console.log(data);
-  };
+ 
   const handlePassword = () => {
     setOpen(!open);
   };
@@ -33,10 +36,50 @@ const Register = () => {
       setDisable(true);
     }
   };
+  const handaleLogin = (data) => {
+    const formData = new FormData()
+    const image = data.photo[0]
+        formData.append('image', image)
+
+    creatUser(data.email, data.password)
+    .then((result)=>{
+      if(result){
+        
+       const url =  `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IBB_KEY}`
+       console.log(url)
+       fetch(url, {
+        method: 'POST',
+        body: formData
+       })
+       .then(res => res.json())
+       .then(data =>{
+        console.log(data.data.display_url)
+       })
+      }
+    })
+    .catch(error =>{
+      console.log(error.message)
+    })
+    
+  };
+
+  const googleHandle = () =>{
+    googleUser()
+    .then((result)=>{
+      console.log(result)
+
+    })
+    .catch(error =>{
+      console.log(error.message)
+    })
+  }
 
   return (
     <div>
-      <Title title={"Please Register "}></Title>
+      <Navbar></Navbar>
+      <div className="flex justify-center mt-20 bg-opacity-60 bg-lime-700">
+        <Title title={"Please Register "}></Title>
+      </div>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row ">
           <div className="text-center lg:text-left">
@@ -190,16 +233,24 @@ const Register = () => {
                 </button>
               </div>
             </form>
-            <p className="pl-6"><small>already have an account  <Link to='/login' className="text-blue-500">Login</Link></small></p>
+            <p className="pl-6">
+              <small>
+                already have an account{" "}
+                <Link to="/login" className="text-blue-500">
+                  Login
+                </Link>
+              </small>
+            </p>
             <div className="divider">OR</div>
             <div className="bg-yellow-300 rounded-b-2xl flex justify-center items-center p-4 ">
-              <button>
-              <FaGoogle className="w-10 h-10"/>
+              <button onClick={googleHandle}>
+                <FaGoogle className="w-10 h-10" />
               </button>
             </div>
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

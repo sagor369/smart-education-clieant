@@ -3,8 +3,12 @@ import Title from "../../Shared/PageTitle/Title";
 import { useForm } from "react-hook-form";
 import { FaEyeSlash, FaEye, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Navbar from "../../Shared/Header/Navbar";
+import Footer from "../../Shared/Footer/Footer";
+import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
+  const { creatUser, googleUser } = useAuth()
   const [open, setOpen]= useState(false)
   const {
     register,
@@ -13,7 +17,14 @@ const Login = () => {
   } = useForm();
 
   const handaleLogin = (data) => {
-    console.log(data);
+
+    creatUser(data.email, data.password)
+    .then((result)=>{
+      console.log(result)
+    })
+    .catch(error =>{
+      console.log(error.message)
+    })
   };
   const handlePassword = ()=>{
     setOpen(!open)
@@ -22,7 +33,10 @@ const Login = () => {
 
   return (
     <>
+    <Navbar></Navbar>
+    <div className="flex justify-center bg-opacity-60 mt-20 bg-lime-700">
       <Title title={"Please Login "}></Title>
+    </div>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row ">
           <div className="text-center lg:text-left">
@@ -136,6 +150,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };

@@ -10,7 +10,10 @@ const Instructors = () => {
     })
     return (
         <div>
+            <div className="mt-20 mb-10">
+
             <Title title='Instructors'></Title>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
                 {
                     users.slice(0,5).map(instructor => <Instructor
