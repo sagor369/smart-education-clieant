@@ -2,25 +2,25 @@ import { useState } from "react";
 import Title from "../../Shared/PageTitle/Title";
 import { useForm } from "react-hook-form";
 import { FaEyeSlash, FaEye, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../Shared/Header/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
-  const { creatUser, googleUser } = useAuth()
+  const navigate = useNavigate()
+  const { logIn, googleUser } = useAuth()
   const [open, setOpen]= useState(false)
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit,formState: { errors },} = useForm();
+  const location = useLocation()
+  const from = location?.state?.from?.pathname || '/'
 
   const handaleLogin = (data) => {
 
-    creatUser(data.email, data.password)
+    logIn(data.email, data.password)
     .then((result)=>{
       console.log(result)
+      navigate(from)
     })
     .catch(error =>{
       console.log(error.message)
@@ -29,6 +29,18 @@ const Login = () => {
   const handlePassword = ()=>{
     setOpen(!open)
 
+  }
+
+  const googleHandle = () =>{
+    googleUser()
+    .then((result)=>{
+      console.log(result)
+      navigate(from)
+
+    })
+    .catch(error =>{
+      console.log(error.message)
+    })
   }
 
   return (
@@ -143,7 +155,7 @@ const Login = () => {
             <p className="pl-6"><small>create a new account <Link to='/register' className="text-blue-500">Register</Link></small></p>
             <div className="divider">OR</div>
             <div className="bg-yellow-300 rounded-b-2xl flex justify-center items-center p-4 ">
-              <button>
+              <button onClick={googleHandle}>
               <FaGoogle className="w-10 h-10"/>
               </button>
             </div>

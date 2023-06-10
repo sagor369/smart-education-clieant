@@ -2,13 +2,13 @@ import { useState } from "react";
 import Title from "../../Shared/PageTitle/Title";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../Shared/Header/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import useAuth from "../../Hooks/useAuth";
 
 const Register = () => {
-  
+  const navigate = useNavigate()
   const {creatUser, googleUser} = useAuth()
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState("");
@@ -37,6 +37,7 @@ const Register = () => {
     }
   };
   const handaleLogin = (data) => {
+    const name = data.name
     const formData = new FormData()
     const image = data.photo[0]
         formData.append('image', image)
@@ -53,9 +54,13 @@ const Register = () => {
        })
        .then(res => res.json())
        .then(data =>{
-        console.log(data.data.display_url)
+        const photo = data.data.display_url
+        console.log(photo)
+
        })
       }
+      // TODO user jwt token added 
+      navigate('/')
     })
     .catch(error =>{
       console.log(error.message)
@@ -67,6 +72,7 @@ const Register = () => {
     googleUser()
     .then((result)=>{
       console.log(result)
+      navigate('/')
 
     })
     .catch(error =>{

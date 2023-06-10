@@ -1,11 +1,10 @@
-import { Link , NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../../public/logo.png";
 import useAuth from "../../Hooks/useAuth";
-import {FaUser} from 'react-icons/fa'
+import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
-  const { user, logout } = useAuth()
-  console.log(user)
+  const { user, logout } = useAuth();
   const navbar = (
     <>
       <li>
@@ -15,44 +14,52 @@ const Navbar = () => {
         <NavLink to="/all-class">All Class</NavLink>
       </li>
       <li>
-        <NavLink to="instructor">Instructors</NavLink>
+        <NavLink to="/instructor">Instructors</NavLink>
       </li>
-      {user &&
-      <li>
-        <NavLink to="instructor">Dashboard</NavLink>
-      </li>
-      }
+      {user && (
+        <>
+          <li>
+            <NavLink to="/dashboard">Dashboard</NavLink>
+          </li>
+          <li>
+            <Link to='/dashboard/my-class'>
+              <button >
+                My Class
+                <div className="badge badge-secondary">+99</div>
+              </button>
+            </Link>
+          </li>
+        </>
+      )}
     </>
   );
   const userHandle = (
     <>
-    {
-      user? <>
-      <button onClick={logout} className="btn btn-active btn-accent mr-2">
-        Logout
-      </button>
-      {
-        user.photoURL? <div title={user?.displayName}>
-        <img className="w-10 rounded-full" src={user.photoURL} alt='' />
-        </div>
-        :
+      {user ? (
         <>
-        <FaUser className="w-10 h-10"/>
+          <button onClick={logout} className="btn btn-active btn-accent mr-2">
+            Logout
+          </button>
+          {user.photoURL ? (
+            <div title={user?.displayName}>
+              <img className="w-10 rounded-full" src={user.photoURL} alt="" />
+            </div>
+          ) : (
+            <>
+              <FaUser className="w-10 h-10" />
+            </>
+          )}
         </>
-
-      }
-      </>
-      :
-      <>
-      <Link className="btn btn-active btn-accent mr-2" to="/login">
-          Login
-        </Link>
-        <Link className="btn btn-active btn-accent" to="/register">
-          Register
-        </Link>
-      </>
-    }
-      
+      ) : (
+        <>
+          <Link className="btn btn-active btn-accent mr-2" to="/login">
+            Login
+          </Link>
+          <Link className="btn btn-active btn-accent" to="/register">
+            Register
+          </Link>
+        </>
+      )}
     </>
   );
   return (
@@ -81,7 +88,7 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{navbar}</ul>
       </div>
       <div className="navbar-end hidden lg:flex bg-purple-700 pr-4 py-2 ">
-      {userHandle}
+        {userHandle}
       </div>
     </div>
   );
