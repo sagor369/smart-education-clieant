@@ -38,6 +38,7 @@ const Register = () => {
   };
   const handaleLogin = (data) => {
     const name = data.name
+    const email= data.email
     const formData = new FormData()
     const image = data.photo[0]
         formData.append('image', image)
@@ -48,14 +49,22 @@ const Register = () => {
         
        const url =  `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IBB_KEY}`
        console.log(url)
-       fetch(url, {
+        fetch(url, {
         method: 'POST',
         body: formData
        })
        .then(res => res.json())
        .then(data =>{
         const photo = data.data.display_url
-        console.log(photo)
+        const user = {photo, name,email }
+        fetch('http://localhost:5000/users',{
+          method:'POST',
+          headers:{
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(user)
+          
+        })
 
        })
       }
@@ -235,7 +244,7 @@ const Register = () => {
                   disabled={disable}
                   className="btn btn-active btn-primary"
                 >
-                  Login
+                  Register
                 </button>
               </div>
             </form>

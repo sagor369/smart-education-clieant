@@ -1,37 +1,43 @@
-import React, { useEffect, useState } from "react";
+import{ useEffect, useState } from "react";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const SelectedClass = () => {
+  const [axiosSecure] = useAxiosSecure()
     const [select, setSelect] = useState([])
     useEffect(()=>{
+      axiosSecure.get('/my-class')
+      .then(data => {
+        setSelect(data.data)
+      })
 
     },[])
   return (
-    <div className="overflow-x-auto">
-      <table className="table">
+    <div className="">
+      <table className="table w-full">
         {/* head */}
-        <thead>
+        <thead className="w-full">
           <tr>
             <th>#</th>
+            <th>Image</th>
             <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
-            <th></th>
+            <th>Seats</th>
+            <th>Price</th>
+            <th>delete/pay</th>
           </tr>
         </thead>
         <tbody>
           {
-
-          }
-          <tr>
+            select.map((data, index) =>
+              <tr key={data._id}>
             <th>
-              1
+             {index +1 }
             </th>
             <td>
               <div className="flex items-center space-x-3">
                 <div className="avatar">
                   <div className="mask mask-squircle w-12 h-12">
                     <img
-                      src="/tailwind-css-component-profile-2@56w.png"
+                      src={data.image}
                       alt="Avatar Tailwind CSS Component"
                     />
                   </div>
@@ -39,13 +45,22 @@ const SelectedClass = () => {
               </div>
             </td>
             <td>
-              Zemlak, Daniel and Leannon
+              {data.className}
             </td>
-            <td>Purple</td>
+            <td>{data.seats}</td>
+            <td>${data.price}</td>
             <th>
-              <button className="btn btn-ghost btn-xs">details</button>
+              <span >
+              <button className="btn btn-primary btn-sm mr-4">pay</button>
+              <button className="btn btn-warning btn-sm">delete</button>
+
+              </span>
             </th>
           </tr>
+              
+              )
+          }
+          
           
           
         </tbody>

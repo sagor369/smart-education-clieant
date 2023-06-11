@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Instructor from "../../Shared/Inatructor/Instructor";
 import Title from "../../Shared/PageTitle/Title";
+import { Helmet } from "react-helmet-async";
 
 const AllInstructor = () => {
   const { data: users = [] } = useQuery(["user"], async () => {
@@ -12,6 +13,9 @@ const AllInstructor = () => {
   });
   return (
     <div>
+      <Helmet>
+                <title>Smart Education | All instructor</title>
+            </Helmet>
       <div className="flex justify-center mt-20 mb-10 bg-opacity-60 bg-lime-700">
         <Title title={"All Instructors  "}></Title>
       </div>
