@@ -1,6 +1,9 @@
+import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Items = ({item}) => {
     const {className, description ,image, instructorName,price, seats } =item
+    const {user} = useAuth()
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <figure>
@@ -20,7 +23,13 @@ const Items = ({item}) => {
         </div>
         <p>{description}</p>
         <div className="card-actions">
-      <button className="btn btn-primary">Add To Card</button>
+          {
+            user?
+            <button className="btn btn-primary">Add To Card</button>
+            :
+            <Link className="btn btn-primary" to='/login'>Pleace login</Link>
+          }
+      
     </div>
       </div>
     </div>

@@ -11,6 +11,9 @@ import AllInstructor from "../Pages/Instructors/AllInstructor";
 import Dashboard from "../Layout/Dashboard/Dashboard";
 import MyClass from "../Pages/MyClasses/MyClass";
 import EnrollClass from "../Pages/EnrollClass/EnrollClass";
+import PriveteRouts from "../PriveteRouts/PriveteRouts";
+import InstructorClass from "../Pages/Home/InstructorClass";
+import SelectedClass from "../Pages/SelectedClass/SelectedClass";
   
   export const router = createBrowserRouter([
     {
@@ -23,11 +26,18 @@ import EnrollClass from "../Pages/EnrollClass/EnrollClass";
         },
         {
           path: 'all-class',
-          element: <AllClass></AllClass>
+          element: <PriveteRouts><AllClass></AllClass></PriveteRouts>
         },
         {
           path:'instructor',
-          element:<AllInstructor></AllInstructor>
+          element:<PriveteRouts><AllInstructor></AllInstructor></PriveteRouts>
+        },
+        {
+          path:'instructor-class/:email',
+          element:<PriveteRouts><InstructorClass></InstructorClass></PriveteRouts>,
+         
+          
+
         }
       ]
     },
@@ -42,6 +52,10 @@ import EnrollClass from "../Pages/EnrollClass/EnrollClass";
         {
           path:'enroll',
           element:<EnrollClass></EnrollClass>
+        },
+        {
+          path:'selected',
+          element:<SelectedClass></SelectedClass>
         }
       ]
       
