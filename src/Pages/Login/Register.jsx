@@ -57,7 +57,10 @@ const Register = () => {
        .then(res => res.json())
        .then(data =>{
         const photo = data.data.display_url
-        axios.post('users',{photo, name,email })
+        axios.post('http://localhost:5000/users',{photo, name,email })
+        .then(data =>{
+          console.log(data)
+        })
 
        })
       }
@@ -76,7 +79,10 @@ const Register = () => {
       const data = result?.user
       const {displayName, photoURL, email
       } = data
-      axios.post('users',{name:displayName , photo: photoURL,email: email
+      axios.post('http://localhost:5000/users',{name:displayName , photo: photoURL,email: email
+      })
+      .then(data =>{
+        console.log(data)
       })
 
       

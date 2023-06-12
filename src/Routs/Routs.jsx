@@ -43,7 +43,7 @@ import SelectedClass from "../Pages/SelectedClass/SelectedClass";
     },
     {
       path:'/dashboard',
-      element:<Dashboard></Dashboard>,
+      element:<PriveteRouts><Dashboard></Dashboard></PriveteRouts>,
       children: [
         {
           path:'my-class',

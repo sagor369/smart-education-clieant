@@ -6,7 +6,7 @@ const useAdmin = () => {
     const {user, loading} = useAuth()
     const [axiosSecure] = useAxiosSecure()
 
-    const {data: isAdmin, isLoading} = useQuery({
+    const {data: manegUser, isLoading} = useQuery({
         queryKey: ['isAdmin', user?.email],
         enabled: !loading,
         queryFn: async() =>{
@@ -14,7 +14,7 @@ const useAdmin = () => {
             return res.data
         }
     })
-    return {isAdmin, isLoading}
+    return {manegUser, isLoading}
 };
 
 export default useAdmin;

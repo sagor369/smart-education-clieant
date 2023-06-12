@@ -7,53 +7,65 @@ import Navbar from "../../Shared/Header/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import useAuth from "../../Hooks/useAuth";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Login = () => {
-  const navigate = useNavigate()
-  const { logIn, googleUser } = useAuth()
-  const [open, setOpen]= useState(false)
-  const { register, handleSubmit,formState: { errors },} = useForm();
-  const location = useLocation()
-  const from = location?.state?.from?.pathname || '/'
+  const navigate = useNavigate();
+  const { logIn, googleUser } = useAuth();
+  const [open, setOpen] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
   const handaleLogin = (data) => {
-
     logIn(data.email, data.password)
-    .then((result)=>{
-      console.log(result)
-      navigate(from)
-    })
-    .catch(error =>{
-      console.log(error.message)
-    })
-  };
-  const handlePassword = ()=>{
-    setOpen(!open)
+      .then((result) => {
+        console.log(result)
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500,
+        });
 
-  }
-
-  const googleHandle = () =>{
-    googleUser()
-    .then((result)=>{
-      const data = result?.user
-      const {displayName, photoURL, email
-      } = data
-      axios.post('users',{name:displayName , photo: photoURL,email: email
+        navigate(from);
       })
-      navigate(from)
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+  const handlePassword = () => {
+    setOpen(!open);
+  };
 
-    })
-    .catch(error =>{
-      console.log(error.message)
-    })
-  }
+  const googleHandle = () => {
+    googleUser()
+      .then((result) => {
+        const data = result?.user;
+        const { displayName, photoURL, email } = data;
+        axios.post("http://localhost:5000/users", {
+          name: displayName,
+          photo: photoURL,
+          email: email,
+        });
+        navigate(from);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   return (
     <>
-    <Navbar></Navbar>
-    <div className="flex justify-center bg-opacity-60 mt-20 bg-lime-700">
-      <Title title={"Please Login "}></Title>
-    </div>
+      <Navbar></Navbar>
+      <div className="flex justify-center bg-opacity-60 mt-20 bg-lime-700">
+        <Title title={"Please Login "}></Title>
+      </div>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row ">
           <div className="text-center lg:text-left">
@@ -85,29 +97,23 @@ const Login = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <label className="input-group ">
-                 {
-                  open ?  
-                  <input
-                  {...register("password", { required: true })}
-                   type="password"
-                   placeholder="passwore"
-                   className="input w-full input-bordered"
-                 />
-                 :
-                 <input
-                 {...register("password", { required: true })}
-                  type="text"
-                  placeholder="passwore"
-                  className="input w-full input-bordered"
-                />
-                 }
-                  <span onClick={handlePassword}>{
-                    open ? 
-                    <FaEye />
-                    :
-                    <FaEyeSlash />
-                    }
-                    
+                  {open ? (
+                    <input
+                      {...register("password", { required: true })}
+                      type="password"
+                      placeholder="passwore"
+                      className="input w-full input-bordered"
+                    />
+                  ) : (
+                    <input
+                      {...register("password", { required: true })}
+                      type="text"
+                      placeholder="passwore"
+                      className="input w-full input-bordered"
+                    />
+                  )}
+                  <span onClick={handlePassword}>
+                    {open ? <FaEye /> : <FaEyeSlash />}
                   </span>
                 </label>
                 {errors.firstName?.type === "required" && (
@@ -157,11 +163,18 @@ const Login = () => {
                 />
               </div>
             </form>
-            <p className="pl-6"><small>create a new account <Link to='/register' className="text-blue-500">Register</Link></small></p>
+            <p className="pl-6">
+              <small>
+                create a new account{" "}
+                <Link to="/register" className="text-blue-500">
+                  Register
+                </Link>
+              </small>
+            </p>
             <div className="divider">OR</div>
             <div className="bg-yellow-300 rounded-b-2xl flex justify-center items-center p-4 ">
               <button onClick={googleHandle}>
-              <FaGoogle className="w-10 h-10"/>
+                <FaGoogle className="w-10 h-10" />
               </button>
             </div>
           </div>

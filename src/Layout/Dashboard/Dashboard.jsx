@@ -3,20 +3,22 @@ import Navbar from "../../Shared/Header/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import MenuBar from "../../Shared/MenuBar/MenuBar";
 import { Helmet } from "react-helmet-async";
-import useAdmin from "../../Hooks/useAdmin";
 
 const Dashboard = () => {
-  const {isAdmin} = useAdmin()
-  console.log(isAdmin?.instructor)
   
 
   return (
-    
+
     <div>
       <Helmet>
         <title>Smart Education | Dashboard</title>
       </Helmet>
+
+
       <Navbar></Navbar>
+
+
+
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col  ">

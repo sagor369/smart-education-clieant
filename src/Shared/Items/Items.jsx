@@ -10,7 +10,7 @@ const Items = ({item}) => {
 
 
     const addClass = () =>{
-      axiosSecure.patch('/add-class', {className, description ,image, instructorName,price, seats})
+      axiosSecure.patch('/add-class', {className, description ,image, instructorName,price, email:user?.email, seats})
       .then(data => {
        const statuseOk = data.data.insertedId
        if(statuseOk){
