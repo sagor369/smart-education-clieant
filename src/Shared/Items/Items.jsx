@@ -35,16 +35,16 @@ const Items = ({item}) => {
           alt={`${className} image`}
         />
       </figure>
-      <div className="card-body">
+      <div className= {`${seats < 1 ? 'bg-red-400' : ''} card-body`}>
         <h2 className="card-title">
           {className}
         </h2>
-        <p>{instructorName}</p>
-        <div className="card-actions justify-between">
+        <p><span className="font-bold "> Instructor Name:</span> {instructorName}</p>
+        <p><span className="font-bold ">Description </span>{description}</p>
+        <div className="card-actions justify-between my-4">
           <div className="badge badge-outline">Price : ${price}</div>
           <div className="badge badge-outline">Total Seats : {seats}</div>
         </div>
-        <p>{description}</p>
         <div className="card-actions">
           {
             user?

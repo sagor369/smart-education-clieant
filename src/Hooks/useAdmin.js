@@ -11,11 +11,10 @@ const useAdmin = () => {
         enabled: !loading,
         queryFn: async() =>{
             const res = await axiosSecure.get(`/user/data/${user?.email}`)
-            console.log(res.data)
             return res.data
         }
     })
-    return {isAdmin}
+    return {isAdmin, isLoading}
 };
 
 export default useAdmin;

@@ -7,10 +7,11 @@ import useAdmin from "../../Hooks/useAdmin";
 
 const Dashboard = () => {
   const {isAdmin} = useAdmin()
-  console.log(isAdmin)
+  console.log(isAdmin?.instructor)
   
 
   return (
+    
     <div>
       <Helmet>
         <title>Smart Education | Dashboard</title>

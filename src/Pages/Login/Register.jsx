@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../Shared/Header/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import useAuth from "../../Hooks/useAuth";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate()
@@ -14,7 +14,6 @@ const Register = () => {
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [disable, setDisable] = useState(true);
-  const [axiosSecure] = useAxiosSecure()
   const {
     register,
     handleSubmit,
@@ -58,7 +57,7 @@ const Register = () => {
        .then(res => res.json())
        .then(data =>{
         const photo = data.data.display_url
-        axiosSecure.post('users',{photo, name,email })
+        axios.post('users',{photo, name,email })
 
        })
       }
@@ -77,7 +76,7 @@ const Register = () => {
       const data = result?.user
       const {displayName, photoURL, email
       } = data
-      axiosSecure.post('users',{name:displayName , photo: photoURL,email: email
+      axios.post('users',{name:displayName , photo: photoURL,email: email
       })
 
       
