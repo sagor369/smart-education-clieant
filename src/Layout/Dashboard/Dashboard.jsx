@@ -3,8 +3,13 @@ import Navbar from "../../Shared/Header/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import MenuBar from "../../Shared/MenuBar/MenuBar";
 import { Helmet } from "react-helmet-async";
+import useAdmin from "../../Hooks/useAdmin";
 
 const Dashboard = () => {
+  const {isAdmin} = useAdmin()
+  console.log(isAdmin)
+  
+
   return (
     <div>
       <Helmet>

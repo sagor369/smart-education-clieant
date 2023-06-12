@@ -1,16 +1,50 @@
-import{ useEffect, useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
 
 const SelectedClass = () => {
   const [axiosSecure] = useAxiosSecure()
-    const [select, setSelect] = useState([])
-    useEffect(()=>{
-      axiosSecure.get('/my-class')
-      .then(data => {
-        setSelect(data.data)
-      })
 
-    },[])
+    const {  data: select=[], refetch } = useQuery(['user'], async()=>{
+      const res = await  axiosSecure.get('/my-class')
+      const result =res.data
+      return result
+    }
+    )
+    console.log(select)
+
+    const deleteClass = (id)=>{
+      console.log(id)
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          
+            axiosSecure.delete(`/delete-class/${id}`)
+            .then(data=>{
+              const deleteCount = data.data.deletedCount
+              console.log(deleteCount)
+              if(deleteCount >0){
+                Swal.fire(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                )
+                refetch()
+              }
+            })
+            }
+          })        
+        }
+     
+
+
   return (
     <div className="">
       <table className="table w-full">
@@ -52,7 +86,7 @@ const SelectedClass = () => {
             <th>
               <span >
               <button className="btn btn-primary btn-sm mr-4">pay</button>
-              <button className="btn btn-warning btn-sm">delete</button>
+              <button onClick={()=>deleteClass(data._id)} className="btn btn-warning btn-sm">delete</button>
 
               </span>
             </th>

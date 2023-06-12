@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../Shared/Header/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Register = () => {
   const navigate = useNavigate()
@@ -13,6 +14,7 @@ const Register = () => {
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [disable, setDisable] = useState(true);
+  const [axiosSecure] = useAxiosSecure()
   const {
     register,
     handleSubmit,
@@ -56,15 +58,7 @@ const Register = () => {
        .then(res => res.json())
        .then(data =>{
         const photo = data.data.display_url
-        const user = {photo, name,email }
-        fetch('http://localhost:5000/users',{
-          method:'POST',
-          headers:{
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify(user)
-          
-        })
+        axiosSecure.post('users',{photo, name,email })
 
        })
       }
@@ -80,7 +74,14 @@ const Register = () => {
   const googleHandle = () =>{
     googleUser()
     .then((result)=>{
-      console.log(result)
+      const data = result?.user
+      const {displayName, photoURL, email
+      } = data
+      axiosSecure.post('users',{name:displayName , photo: photoURL,email: email
+      })
+
+      
+
       navigate('/')
 
     })

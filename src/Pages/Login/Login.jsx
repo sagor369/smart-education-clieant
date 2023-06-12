@@ -6,9 +6,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../Shared/Header/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Login = () => {
   const navigate = useNavigate()
+  const [axiosSecure] = useAxiosSecure()
   const { logIn, googleUser } = useAuth()
   const [open, setOpen]= useState(false)
   const { register, handleSubmit,formState: { errors },} = useForm();
@@ -34,7 +36,11 @@ const Login = () => {
   const googleHandle = () =>{
     googleUser()
     .then((result)=>{
-      console.log(result)
+      const data = result?.user
+      const {displayName, photoURL, email
+      } = data
+      axiosSecure.post('users',{name:displayName , photo: photoURL,email: email
+      })
       navigate(from)
 
     })

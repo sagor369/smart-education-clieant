@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Items = ({item}) => {
     const {className, description ,image, instructorName,price, seats } =item
@@ -11,7 +12,17 @@ const Items = ({item}) => {
     const addClass = () =>{
       axiosSecure.patch('/add-class', {className, description ,image, instructorName,price, seats})
       .then(data => {
-        console.log(data)
+       const statuseOk = data.data.insertedId
+       if(statuseOk){
+        Swal.fire({
+          position: 'top-center',
+          icon: 'success',
+          title: 'This class is added ',
+          showConfirmButton: false,
+          timer: 1500
+        })
+       }
+
       })
     }
 
