@@ -1,6 +1,7 @@
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 const SelectedClass = () => {
   const [axiosSecure] = useAxiosSecure()
@@ -11,7 +12,6 @@ const SelectedClass = () => {
       return result
     }
     )
-    console.log(select)
 
     const deleteClass = (id)=>{
       console.log(id)
@@ -85,7 +85,7 @@ const SelectedClass = () => {
             <td>${data.price}</td>
             <th>
               <span >
-              <button className="btn btn-primary btn-sm mr-4">pay</button>
+              <Link to={`/dashboard/payment/${data._id}`} className="btn btn-primary btn-sm mr-4">pay</Link >
               <button onClick={()=>deleteClass(data._id)} className="btn btn-warning btn-sm">delete</button>
 
               </span>

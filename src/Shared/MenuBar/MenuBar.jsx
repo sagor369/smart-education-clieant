@@ -4,7 +4,6 @@ import useAdmin from "../../Hooks/useAdmin";
 
 const MenuBar = () => {
     const {manegUser} = useAdmin()
-    console.log(manegUser)
     return (
         <div>
           {

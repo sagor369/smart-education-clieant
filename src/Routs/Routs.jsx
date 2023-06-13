@@ -14,6 +14,7 @@ import EnrollClass from "../Pages/EnrollClass/EnrollClass";
 import PriveteRouts from "../PriveteRouts/PriveteRouts";
 import InstructorClass from "../Pages/Home/InstructorClass";
 import SelectedClass from "../Pages/SelectedClass/SelectedClass";
+import Payment from "../Pages/Payment/Payment";
   
   export const router = createBrowserRouter([
     {
@@ -56,6 +57,10 @@ import SelectedClass from "../Pages/SelectedClass/SelectedClass";
         {
           path:'selected',
           element:<SelectedClass></SelectedClass>
+        },
+        {
+          path:'payment/:id',
+          element:<Payment></Payment>
         }
       ]
       

@@ -1,7 +1,7 @@
 import { useLoaderData, useParams } from "react-router-dom";
 import Items from "../../Shared/Items/Items";
 import Title from "../../Shared/PageTitle/Title";
-import { useEffect, useState } from "react";
+import { useEffect,  } from "react";
 
 const InstructorClass = () => {
     // const [classes, setClasses] = useState([])
