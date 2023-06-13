@@ -48,7 +48,7 @@ const Items = ({item}) => {
         <div className="card-actions">
           {
             user?
-            <button onClick={addClass} className="btn btn-primary">Add To Card</button>
+            <button onClick={addClass} disabled={seats <1} className="btn btn-primary">Add To Card</button>
             :
             <Link className="btn btn-warning" to='/login'>Pleace login</Link>
           }
