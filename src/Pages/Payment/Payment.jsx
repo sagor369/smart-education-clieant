@@ -6,12 +6,13 @@ import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAuth from "../../Hooks/useAuth";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_KEY);
 const Payment = () => {
   const [axiosSecure] = useAxiosSecure();
   const { id } = useParams();
-
+  const {user } = useAuth()
   const { data } = useQuery({
     queryKey: ["payment"],
     queryFn: async () => {
@@ -19,7 +20,7 @@ const Payment = () => {
       const classes = res?.data;
 
       const paymentPrice = classes.find((data) => data._id === id);
-      return paymentPrice.price;
+      return paymentPrice;
     },
   });
 
@@ -33,7 +34,7 @@ const Payment = () => {
       </div>
 
       <Elements stripe={stripePromise}>
-        <ChackOut price={data}></ChackOut>
+        <ChackOut data={data} user={user}></ChackOut>
       </Elements>
     </div>
   );
