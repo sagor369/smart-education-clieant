@@ -4,7 +4,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 
 const EnrollClass = () => {
-    const {user, loading} = useAuth()
+    const {user, } = useAuth()
     const [axiosSecure] = useAxiosSecure()
     const [enrollClass , setEnrollClass] = useState([])
     useEffect(()=>{
