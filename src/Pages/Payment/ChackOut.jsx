@@ -15,7 +15,7 @@ const ChackOut = ({ data, user }) => {
         setSecretUser(res.data.clientSecret);
       });
     }
-  }, [data?.price , axiosSecure]);
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -37,7 +37,6 @@ const ChackOut = ({ data, user }) => {
       console.log(error.message);
     } else {
       setError("");
-      console.log([paymentMethod], "payment");
     }
 
     const { paymentIntent, error: findError } = await stripe.confirmCardPayment(
@@ -58,7 +57,7 @@ const ChackOut = ({ data, user }) => {
     }
 
     if (paymentIntent.status === "succeeded") {
-      console.log(paymentIntent, "payment");
+      console.log(paymentIntent.status)
       const payment = {
         email: user?.email,
         transactionId: paymentIntent.id,
@@ -71,7 +70,10 @@ const ChackOut = ({ data, user }) => {
       axiosSecure.post("/payments", payment).then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {
-          console.log(res.data)
+          axiosSecure.patch(`/enroll-class/${data?._id}`)
+          .then(res =>{
+            console.log(res.data)
+          })
         }
       });
     }
