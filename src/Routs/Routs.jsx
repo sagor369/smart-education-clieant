@@ -49,11 +49,11 @@ import UserHome from "../Pages/UserHome/UserHome";
       element:<PriveteRouts><Dashboard></Dashboard></PriveteRouts>,
       children: [
         {
-          path: '/dashboard',
+          path: '/dashboard/user',
           element:<UserHome></UserHome>
         },
         {
-          path:'my-class',
+          path:'instructor-class',
           element:<MyClass></MyClass>
         },
         {

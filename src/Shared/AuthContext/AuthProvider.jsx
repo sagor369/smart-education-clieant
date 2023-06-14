@@ -34,9 +34,10 @@ const AuthProvider = ({children}) => {
         const unsescribe = onAuthStateChanged(auth, (currentuser)=>{
                 setUser(currentuser)
                 if(currentuser){
-                    axios.post('http://localhost:5000/jwt', {email: currentuser.email})
+                    console.log(currentuser)
+                    axios.post('http://localhost:5000/jwt', {email: currentuser?.email})
                     .then(data =>{
-                        localStorage.setItem('access-token', data.data)
+                        localStorage.setItem('access-token', data.data.token)
                         setLoading(false);
                     })
                 }

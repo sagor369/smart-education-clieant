@@ -1,9 +1,20 @@
 import { NavLink } from 'react-router-dom';
-import useAdmin from "../../Hooks/useAdmin";
+import { useState, useEffect } from 'react';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import useAuth from '../../Hooks/useAuth';
 
 
 const MenuBar = () => {
-    const {manegUser} = useAdmin()
+  const [manegUser, setManeguser] = useState({})
+  const [axiosSecure] = useAxiosSecure()
+  const {user} = useAuth()
+  useEffect(()=>{
+    axiosSecure.get(`/user-data/${user?.email}`)
+    .then(res =>{
+     setManeguser(res.data)
+    })
+  },[manegUser])
+    
     return (
         <div>
           {
@@ -31,7 +42,7 @@ const MenuBar = () => {
               <NavLink > Instructor Home</NavLink>
             </li>
             <li>
-              <NavLink to='/dashboard/my-class'> My Classes</NavLink>
+              <NavLink to={`/dashboard/instructor-class`}> My Classes</NavLink>
             </li>
             <li>
               <NavLink to='/dashboard/add-class'> Add Class</NavLink>
@@ -45,7 +56,7 @@ const MenuBar = () => {
           {
             manegUser?.user && <>
             <li>
-              <NavLink to='/dashboard'> User Home</NavLink>
+              <NavLink to='/dashboard/user'> User Home</NavLink>
             </li>
             <li>
               <NavLink to='/dashboard/enroll'> Enroll Class</NavLink>
