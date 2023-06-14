@@ -17,6 +17,7 @@ import SelectedClass from "../Pages/SelectedClass/SelectedClass";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import Payment from "../Pages/Payment/Payment";
 import UserHome from "../Pages/UserHome/UserHome";
+import ClassUpdate from "../Pages/ClassUpdate/ClassUpdate";
   
   export const router = createBrowserRouter([
     {
@@ -55,6 +56,10 @@ import UserHome from "../Pages/UserHome/UserHome";
         {
           path:'instructor-class',
           element:<MyClass></MyClass>
+        },
+        {
+          path:'update-class/:id',
+          element: <ClassUpdate></ClassUpdate>
         },
         {
           path:'enroll',

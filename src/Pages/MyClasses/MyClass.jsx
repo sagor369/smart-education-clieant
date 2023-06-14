@@ -3,6 +3,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
 import{FaEdit} from 'react-icons/fa'
+import { Link } from "react-router-dom";
 
 
 const MyClass = () => {
@@ -71,7 +72,7 @@ const MyClass = () => {
         {item.seats}
         </td>
         <td>
-          <button onClick={()=>classEdit(item._id)} className="btn "><FaEdit/></button>
+          <Link to={`/dashboard/update-class/${item._id}`} className="btn "><FaEdit/></Link>
           <button onClick={()=>handlaDelete(item._id)} className="btn btn-warning">delete</button>
         </td>
       </tr>
