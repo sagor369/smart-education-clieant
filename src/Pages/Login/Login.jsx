@@ -48,7 +48,7 @@ const Login = () => {
       .then((result) => {
         const data = result?.user;
         const { displayName, photoURL, email } = data;
-        axios.post("http://localhost:5000/users", {
+        axios.post("http://localhost:5000/add-users", {
           name: displayName,
           photo: photoURL,
           email: email,

@@ -15,6 +15,8 @@ import PriveteRouts from "../PriveteRouts/PriveteRouts";
 import InstructorClass from "../Pages/Home/InstructorClass";
 import SelectedClass from "../Pages/SelectedClass/SelectedClass";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
+import Payment from "../Pages/Payment/Payment";
+import UserHome from "../Pages/UserHome/UserHome";
   
   export const router = createBrowserRouter([
     {
@@ -47,6 +49,10 @@ import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
       element:<PriveteRouts><Dashboard></Dashboard></PriveteRouts>,
       children: [
         {
+          path: '/dashboard',
+          element:<UserHome></UserHome>
+        },
+        {
           path:'my-class',
           element:<MyClass></MyClass>
         },
@@ -59,7 +65,11 @@ import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
           element:<SelectedClass></SelectedClass>
         },
         {
-          path:'payment',
+          path:'payment/:id',
+          element:<Payment></Payment>
+        },
+        {
+          path:'payments',
           element:<PaymentHistory></PaymentHistory>
         }
       ]

@@ -45,7 +45,7 @@ const MenuBar = () => {
           {
             manegUser?.user && <>
             <li>
-              <NavLink > User Home</NavLink>
+              <NavLink to='/dashboard'> User Home</NavLink>
             </li>
             <li>
               <NavLink to='/dashboard/enroll'> Enroll Class</NavLink>
@@ -54,7 +54,7 @@ const MenuBar = () => {
               <NavLink to='/dashboard/selected'> Selected Class</NavLink>
             </li>
             <li>
-              <NavLink to='/dashboard/payment'> Payment History</NavLink>
+              <NavLink to='/dashboard/payments'> Payment History</NavLink>
             </li>
             </>
           }

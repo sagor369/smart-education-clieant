@@ -1,6 +1,7 @@
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 const ChackOut = ({ data, user }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -8,6 +9,7 @@ const ChackOut = ({ data, user }) => {
   const [axiosSecure] = useAxiosSecure();
   const [secretUser, setSecretUser] = useState("");
   const [prossesing, setProssesing] = useState(false);
+  const [paymentId , setPaymentId] = useState('')
 
   useEffect(() => {
     if (data?.price > 0) {
@@ -51,13 +53,13 @@ const ChackOut = ({ data, user }) => {
         },
       }
     );
+    setPaymentId(paymentIntent?.id)
     setProssesing(false);
     if (findError) {
       console.log(findError.message);
     }
 
     if (paymentIntent.status === "succeeded") {
-      console.log(paymentIntent.status)
       const payment = {
         email: user?.email,
         transactionId: paymentIntent.id,
@@ -75,7 +77,23 @@ const ChackOut = ({ data, user }) => {
             console.log(res.data)
           })
         }
+
       });
+      console.log(data._id, 'data id')
+      axiosSecure.patch(`/update-class/${data?.className}`)
+      .then(res=>{
+        if(res.data.modifiedCount >0){
+          Swal.fire({
+            title:'Your payment is successfull ',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          })
+        }
+      })
     }
   };
 
