@@ -64,7 +64,6 @@ const Register = () => {
 
        })
       }
-      // TODO user jwt token added 
       navigate('/')
     })
     .catch(error =>{

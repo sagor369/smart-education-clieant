@@ -16,7 +16,7 @@ const Navbar = () => {
       <li>
         <NavLink to="/instructor">Instructors</NavLink>
       </li>
-      {user && (
+      {user?
         <>
           <li>
             <NavLink to="/dashboard">Dashboard</NavLink>
@@ -30,7 +30,8 @@ const Navbar = () => {
             </Link>
           </li>
         </>
-      )}
+        : ''
+      }
     </>
   );
   const userHandle = (

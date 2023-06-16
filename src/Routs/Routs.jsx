@@ -18,6 +18,9 @@ import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import Payment from "../Pages/Payment/Payment";
 import UserHome from "../Pages/UserHome/UserHome";
 import ClassUpdate from "../Pages/ClassUpdate/ClassUpdate";
+import AddClass from "../Pages/AddClass/AddClass";
+import EnrollStudent from "../Pages/EnrollStudent/EnrollStudent";
+import InstructorRout from "./InstructorRout";
   
   export const router = createBrowserRouter([
     {
@@ -49,17 +52,22 @@ import ClassUpdate from "../Pages/ClassUpdate/ClassUpdate";
       path:'/dashboard',
       element:<PriveteRouts><Dashboard></Dashboard></PriveteRouts>,
       children: [
-        {
-          path: '/dashboard/user',
-          element:<UserHome></UserHome>
-        },
+       
         {
           path:'instructor-class',
-          element:<MyClass></MyClass>
+          element:<InstructorRout><MyClass></MyClass></InstructorRout>
         },
         {
           path:'update-class/:id',
-          element: <ClassUpdate></ClassUpdate>
+          element: <InstructorRout><ClassUpdate></ClassUpdate></InstructorRout>
+        },
+        {
+          path:'add-class',
+          element: <InstructorRout><AddClass></AddClass></InstructorRout>
+        },
+        {
+          path: 'enroll-class',
+          element:<InstructorRout><EnrollStudent></EnrollStudent></InstructorRout>
         },
         {
           path:'enroll',

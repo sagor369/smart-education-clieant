@@ -16,7 +16,7 @@ const Payment = () => {
   const { data } = useQuery({
     queryKey: ["payment"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/my-class");
+      const res = await axiosSecure.get(`/my-class/${user?.email}`);
       const classes = res?.data;
 
       const paymentPrice = classes.find((data) => data._id === id);

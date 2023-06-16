@@ -2,15 +2,17 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const SelectedClass = () => {
   const [axiosSecure] = useAxiosSecure();
-
-  const { data: select = [], refetch } = useQuery(["user"], async () => {
-    const res = await axiosSecure.get("/my-class");
+  const {user} = useAuth()
+  const { data: select = [], isLoading, refetch } = useQuery(["user"], async () => {
+    const res = await axiosSecure.get(`/my-class/${user?.email}`, );
     const result = res.data;
     return result;
   });
+  console.log(select)
 
   const deleteClass = (id) => {
     console.log(id);
@@ -38,6 +40,9 @@ const SelectedClass = () => {
 
   return (
     <div className="">
+      {isLoading && 
+      <progress className="progress w-56"></progress>
+      }
       <table className="table w-full">
         {/* head */}
         <thead className="w-full">

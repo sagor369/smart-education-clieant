@@ -3,26 +3,37 @@ import Navbar from "../../Shared/Header/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import MenuBar from "../../Shared/MenuBar/MenuBar";
 import { Helmet } from "react-helmet-async";
+import { useState, useEffect } from "react";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAuth from "../../Hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 
 const Dashboard = () => {
+  const [axiosSecure] = useAxiosSecure();
+  const { user } = useAuth();
+  const { data: manegUser = {}, isLoading } = useQuery(["manegUser", user?.email], async () => {
+    const res = await axiosSecure.get(`/user-data/${user?.email}`);
+    const result = res.data
+    return result
+    
+  }
   
+  );
 
   return (
-
     <div>
       <Helmet>
         <title>Smart Education | Dashboard</title>
       </Helmet>
 
-
       <Navbar></Navbar>
-
-
 
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col  ">
           <Outlet></Outlet>
+          {isLoading && <progress className="progress w-56"></progress>}
+
           <label
             htmlFor="my-drawer-2"
             className="btn btn-primary drawer-button lg:hidden"
@@ -33,9 +44,7 @@ const Dashboard = () => {
         <div className="drawer-side">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu acctivate p-4 w-80 h-full bg-base-200 text-base-content">
-            {/* Sidebar content here */}
-
-            <MenuBar></MenuBar>
+            <MenuBar data={manegUser}></MenuBar>
           </ul>
         </div>
       </div>

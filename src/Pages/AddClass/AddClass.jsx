@@ -1,42 +1,41 @@
-import { useParams } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
-
-const ClassUpdate = () => {
+const AddClass = () => {
   const { user } = useAuth();
-  const {id }= useParams()
-  const [axiosSecure] = useAxiosSecure()
-  const {
-    register,
-    handleSubmit,
-  } = useForm();
+  const [axiosSecure] = useAxiosSecure();
+  const { register, handleSubmit } = useForm();
 
-  const { data, refetch } = useQuery(["classes", id], async () => {
-    const res = await axiosSecure.get(`/instructor-update-class/${id}`);
-    const result = res.data;
-    return result;
-  });
+  const addedClass = (data) => {
+    const formData = new FormData()
+    const image = data.photo[0]
+        formData.append('image', image)
+console.log(data)
+    const url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IBB_KEY
+    }`;
+    console.log(url);
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+    .then(res =>res.json())
+    .then(photo =>{
+      console.log(photo)
+      const body = {email:user.email, name: user.displayName, seats:data.seats, price: data.price, photos: photo.data.display_url , className: data.className}
+      axiosSecure.post('/new-class', {body})
+      .then(res => console.log(res.data))
+    })
 
-  const updateclass = (data) =>{
-
-    axiosSecure.patch(`/modify-instructor-class/${id}`, {data} ) 
-    .then(res =>{
-        console.log(res.data)
-    })   
-    console.log(data)
-  }
-
-
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content w-full">
         <div className="text-center lg:text-left"></div>
         <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
-          <form onSubmit={handleSubmit(updateclass)} className="card-body">
+          <form onSubmit={handleSubmit(addedClass)} className="card-body">
             <div className=" grid md:grid-cols-2 grid-cols-1 gap-4">
               <div className="">
                 <label className="label">
@@ -44,10 +43,10 @@ const ClassUpdate = () => {
                 </label>
                 <input
                   type="text"
-                  {...register("email",)}
+                  {...register("email")}
                   placeholder="email"
                   className="input input-bordered w-full"
-                  value={user?.email}
+                  defaultValue={user?.email}
                   readonly
                 />
               </div>
@@ -57,7 +56,7 @@ const ClassUpdate = () => {
                 </label>
                 <input
                   type="text"
-                  {...register("instructorName",)}
+                  {...register("instructorName")}
                   placeholder="enter your name"
                   className="input w-full input-bordered"
                   value={user?.displayName}
@@ -68,45 +67,55 @@ const ClassUpdate = () => {
             <div className=" grid md:grid-cols-2 grid-cols-1 gap-4">
               <div className="">
                 <label className="label">
+                  <span className="label-text">Class name</span>
+                </label>
+                <input
+                  type="text"
+                  {...register("className")}
+                  placeholder="Class name"
+                  className="input input-bordered w-full"
+                />
+              </div>
+              <div className="">
+                <label className="label">
                   <span className="label-text">Available seats </span>
                 </label>
                 <input
                   type="number"
-                  {...register("seats",)}
-                  defaultValue={data?.seats}
+                  {...register("seats")}
                   placeholder="seats "
                   className="input input-bordered w-full"
                 />
               </div>
+            </div>
+            <div className=" grid md:grid-cols-2 grid-cols-1 gap-4">
               <div>
                 <label className="label">
                   <span className="label-text">price</span>
                 </label>
                 <input
                   placeholder="Class price"
-                  {...register("price",)}
-                  defaultValue={data?.price}
+                  {...register("price")}
                   type="number"
                   className="input w-full input-bordered"
                 />
               </div>
-            </div>
-            <div className=" grid md:grid-cols-2 grid-cols-1 gap-4">
-              <div className="">
+              <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Class name</span>
+                  <span className="label-text">Photo</span>
                 </label>
                 <input
-                  type="text"
-                  {...register("className",)}
-                  defaultValue={data?.className}
-                  placeholder="Class name"
-                  className="input input-bordered w-full"
+                  {...register("photo", { required: true })}
+                  type="file"
+                  placeholder="name"
+                  required
+                  className="input input-bordered"
                 />
               </div>
             </div>
+
             <div className="form-control mt-6">
-              <button className="btn btn-primary">update class</button>
+              <button className="btn btn-primary">Add class</button>
             </div>
           </form>
         </div>
@@ -115,4 +124,4 @@ const ClassUpdate = () => {
   );
 };
 
-export default ClassUpdate;
+export default AddClass;
