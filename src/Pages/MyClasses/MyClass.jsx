@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
 import{FaEdit} from 'react-icons/fa'
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const MyClass = () => {
@@ -17,10 +18,31 @@ const MyClass = () => {
 
     // TODO handla delete 
     const handlaDelete = (id)=>{
-        // axiosSecure.get(`/delete-class/${id}`)
-        // .then(res =>{
-        //     console.log(res.data)
-        // })
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axiosSecure.delete(`/delete-class/${id}`)
+        .then(res =>{
+            if(res.data.deletedCount >0){
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+              refetch()
+            }
+        })
+          
+        }
+      })
+        
         refetch()
 
     }

@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
@@ -15,7 +16,6 @@ console.log(data)
     const url = `https://api.imgbb.com/1/upload?key=${
       import.meta.env.VITE_IBB_KEY
     }`;
-    console.log(url);
     fetch(url, {
       method: "POST",
       body: formData,
@@ -25,7 +25,20 @@ console.log(data)
       console.log(photo)
       const body = {email:user.email, name: user.displayName, seats:data.seats, price: data.price, photos: photo.data.display_url , className: data.className}
       axiosSecure.post('/new-class', {body})
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log(res.data.in)
+        if(res.data.insertedId){
+          Swal.fire({
+            title: 'new class added success full',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          })
+        }
+      })
     })
 
   };

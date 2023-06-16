@@ -15,7 +15,7 @@ const EnrollStudent = () => {
     console.log(enrollClass)
         return (
         <div>
-            
+            hellog
         </div>
     );
 };

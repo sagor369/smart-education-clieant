@@ -3,7 +3,6 @@ import Navbar from "../../Shared/Header/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import MenuBar from "../../Shared/MenuBar/MenuBar";
 import { Helmet } from "react-helmet-async";
-import { useState, useEffect } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
@@ -19,7 +18,6 @@ const Dashboard = () => {
   }
   
   );
-
   return (
     <div>
       <Helmet>

@@ -7,7 +7,7 @@ import useAuth from "../../Hooks/useAuth";
 const SelectedClass = () => {
   const [axiosSecure] = useAxiosSecure();
   const {user} = useAuth()
-  const { data: select = [], isLoading, refetch } = useQuery(["user"], async () => {
+  const { data: select = [], isLoading, refetch } = useQuery(["my-class"], async () => {
     const res = await axiosSecure.get(`/my-class/${user?.email}`, );
     const result = res.data;
     return result;
@@ -26,7 +26,7 @@ const SelectedClass = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/delete-class/${id}`).then((data) => {
+        axiosSecure.delete(`/delete-user-class/${id}`).then((data) => {
           const deleteCount = data.data.deletedCount;
           console.log(deleteCount);
           if (deleteCount > 0) {
