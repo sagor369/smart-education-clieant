@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import app from '../../firebase/firebase.config';
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -34,10 +34,10 @@ const AuthProvider = ({children}) => {
         const unsescribe = onAuthStateChanged(auth, (currentuser)=>{
                 setUser(currentuser)
                 if(currentuser){
-                    console.log(currentuser)
-                    axios.post('http://localhost:5000/jwt', {email: currentuser?.email})
+                    axios.post('https://server-site-alpha.vercel.app/jwt', {email: currentuser?.email})
                     .then(data =>{
                         localStorage.setItem(' access-token', data.data.token)
+                        setUser(currentuser)
                         setLoading(false);
 
                     })
@@ -48,6 +48,7 @@ const AuthProvider = ({children}) => {
                 }
                 
             })
+            console.log(user)
         
         return ()=>{
             return unsescribe()

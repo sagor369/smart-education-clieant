@@ -3,8 +3,11 @@ import useAuth from "../Hooks/useAuth";
 
 
 const PriveteRouts = ({children}) => {
-    const {user} = useAuth()
+    const {user, loading} = useAuth()
     const location = useLocation()
+    if(loading){
+       return <span className="loading loading-bars loading-md"></span>
+    }
     if(user){
         return children
     }

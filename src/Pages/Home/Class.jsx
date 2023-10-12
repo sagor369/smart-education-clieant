@@ -4,7 +4,7 @@ import Items from "../../Shared/Items/Items";
 
 const Class = () => {
     const {  data: classes=[] } = useQuery(['class'], async()=>{
-        const res = await fetch('http://localhost:5000/populer')
+        const res = await fetch('https://server-site-alpha.vercel.app/populer')
         const result =res.json()
         return result
     })

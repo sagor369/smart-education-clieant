@@ -5,10 +5,12 @@ import { Helmet } from "react-helmet-async";
 
 const AllClass = () => {
   const { data: classes = [] } = useQuery(["class"], async () => {
-    const res = await fetch("http://localhost:5000/populer");
+    const res = await fetch("https://server-site-alpha.vercel.app/all-class");
+    // const res = await fetch("http://localhost:5000/all-class");
     const result = res.json();
     return result;
   });
+  console.log(classes)
   return (
     <div>
       <Helmet>

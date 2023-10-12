@@ -7,10 +7,11 @@ import Navbar from "../../Shared/Header/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import useAuth from "../../Hooks/useAuth";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Register = () => {
-  const navigate = useNavigate()
-  const {creatUser, googleUser} = useAuth()
+  const navigate = useNavigate();
+  const { creatUser, googleUser, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [disable, setDisable] = useState(true);
@@ -20,7 +21,6 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
- 
   const handlePassword = () => {
     setOpen(!open);
   };
@@ -38,61 +38,71 @@ const Register = () => {
     }
   };
   const handaleLogin = (data) => {
-    const name = data.name
-    const email= data.email
-    const formData = new FormData()
-    const image = data.photo[0]
-        formData.append('image', image)
+    const name = data.name;
+    const email = data.email;
+    const formData = new FormData();
+    const image = data.photo[0];
+    formData.append("image", image);
 
-    creatUser(data.email, data.password)
-    .then((result)=>{
-      if(result){
-        
-       const url =  `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IBB_KEY}`
-       console.log(url)
-        fetch(url, {
-        method: 'POST',
-        body: formData
-       })
-       .then(res => res.json())
-       .then(data =>{
-        const photo = data.data.display_url
-        axios.post('http://localhost:5000/add-users',{photo, name,email })
-        .then(data =>{
-          console.log(data)
-        })
+    creatUser(data.email, data.password, data.name)
+      .then((result) => {
+        if (result) {
+          const url = `https://api.imgbb.com/1/upload?key=${
+            import.meta.env.VITE_IBB_KEY
+          }`;
+          console.log(url);
+          fetch(url, {
+            method: "POST",
+            body: formData,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              const photo = data.data.display_url;
+              axios
+                .post("https://server-site-alpha.vercel.app/add-users", { photo, name, email })
+                .then((data) => {
+                  console.log(data);
+                });
+            });
 
-       })
-      }
-      navigate('/')
-    })
-    .catch(error =>{
-      console.log(error.message)
-    })
-    
+          Swal.fire({
+            title: "registation is success full Please login",
+            showClass: {
+              popup: "animate__animated animate__fadeInDown",
+            },
+            hideClass: {
+              popup: "animate__animated animate__fadeOutUp",
+            },
+          });
+        }
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
-  const googleHandle = () =>{
+  const googleHandle = () => {
     googleUser()
-    .then((result)=>{
-      const data = result?.user
-      const {displayName, photoURL, email
-      } = data
-      axios.post('http://localhost:5000/add-users',{name:displayName , photo: photoURL,email: email
+      .then((result) => {
+        const data = result?.user;
+        const { displayName, photoURL, email } = data;
+        axios
+          .post("https://server-site-alpha.vercel.app/add-users", {
+            name: displayName,
+            photo: photoURL,
+            email: email,
+          })
+          .then((data) => {
+            console.log(data);
+          });
+
+        navigate("/");
       })
-      .then(data =>{
-        console.log(data)
-      })
-
-      
-
-      navigate('/')
-
-    })
-    .catch(error =>{
-      console.log(error.message)
-    })
-  }
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   return (
     <div>

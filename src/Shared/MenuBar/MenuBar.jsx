@@ -1,7 +1,19 @@
-import { NavLink} from 'react-router-dom';
+import { Link, NavLink} from 'react-router-dom';
 
 
 const MenuBar = ({data}) => {
+
+  const mainLink = <>
+  <li>
+    <Link to={"/"}>Home</Link>
+  </li>
+  <li>
+    <Link to={"/all-class"}>All Class</Link>
+  </li>
+  <li>
+    <Link to={"/instructor"}>All Instructor</Link>
+  </li>
+  </>
     
     return (
         <div>
@@ -12,21 +24,28 @@ const MenuBar = ({data}) => {
               <NavLink > Admin Home</NavLink>
             </li>
             <li>
-              <NavLink to='/dashboard/enroll'> Enroll Classes</NavLink>
+              <NavLink to='/dashboard/enroll-user'> Enroll Classes</NavLink>
             </li>
             <li>
-              <NavLink to='/dashboard/selected'> manege Class</NavLink>
+              <NavLink to='/dashboard/manageClass'> manege Class</NavLink>
             </li>
             <li>
-              <NavLink to='/dashboard/payment'> menage user</NavLink>
+              <NavLink to='/dashboard/users'> menage user</NavLink>
             </li>
+            <div className='mt-20'>
+            <hr />
+            {mainLink}
+            </div>
             
           </>
           }
           {
             data?.instructor && 
           <>
-         
+            
+            <li>
+              <NavLink > Instructor Home</NavLink>
+            </li>
             <li>
               <NavLink to={`/dashboard/instructor-class`}> My Classes</NavLink>
             </li>
@@ -36,11 +55,19 @@ const MenuBar = ({data}) => {
             <li>
               <NavLink to='/dashboard/enroll-class'> Enroll class</NavLink>
             </li>
+
+            <div className='mt-20'>
+            <hr />
+            {mainLink}
+            </div>
             
           </>
           }
           {
             data?.user && <>
+            <li>
+              <NavLink to='/dashboard/user-home'> Student home </NavLink>
+            </li>
             <li>
               <NavLink to='/dashboard/enroll'> Enroll Class</NavLink>
             </li>
@@ -50,6 +77,10 @@ const MenuBar = ({data}) => {
             <li>
               <NavLink to='/dashboard/payments'> Payment History</NavLink>
             </li>
+            <div className='mt-20'>
+            <hr />
+            {mainLink}
+            </div>
             </>
           }
   

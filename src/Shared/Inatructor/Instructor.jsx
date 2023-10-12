@@ -4,10 +4,10 @@ const Instructor = ({ item }) => {
   const { image, name, totalClass, email } = item;
 
   return (
-    <div className="card card-side bg-base-100 shadow-xl">
+    <div className="md:flex rounded-2xl bg-base-100 shadow-xl">
       <figure>
         <img
-        className="md:w-52 w-full h-56"
+        className="md:w-52 w-full h-56 rounded-2xl"
           src={image}
           alt={name}
         />

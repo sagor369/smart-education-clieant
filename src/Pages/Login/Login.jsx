@@ -48,7 +48,7 @@ const Login = () => {
       .then((result) => {
         const data = result?.user;
         const { displayName, photoURL, email } = data;
-        axios.post("http://localhost:5000/add-users", {
+        axios.post("https://server-site-alpha.vercel.app/add-users", {
           name: displayName,
           photo: photoURL,
           email: email,

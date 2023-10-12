@@ -21,6 +21,9 @@ import ClassUpdate from "../Pages/ClassUpdate/ClassUpdate";
 import AddClass from "../Pages/AddClass/AddClass";
 import EnrollStudent from "../Pages/EnrollStudent/EnrollStudent";
 import InstructorRout from "./InstructorRout";
+import ManageUser from "../Pages/ManageUser/ManageUser";
+import ManageClass from "../Pages/ManageClass/ManageClass";
+import EnrollUser from "../Pages/EnrollUser/TotalEnrollClass";
   
   export const router = createBrowserRouter([
     {
@@ -52,6 +55,22 @@ import InstructorRout from "./InstructorRout";
       path:'/dashboard',
       element:<PriveteRouts><Dashboard></Dashboard></PriveteRouts>,
       children: [
+        {
+          path: 'users',
+          element: <ManageUser></ManageUser>
+        },
+        {
+          path: 'manageClass',
+          element: <ManageClass></ManageClass>
+        },
+        {
+          path: 'enroll-user',
+          element:<EnrollUser></EnrollUser>
+        },
+        {
+          path: 'instructor-home',
+          element: <InstructorRout></InstructorRout>
+        },
        
         {
           path:'instructor-class',
@@ -71,6 +90,10 @@ import InstructorRout from "./InstructorRout";
         },
         {
           path:'enroll',
+          element:<EnrollClass></EnrollClass>
+        },
+        {
+          path:'user-home',
           element:<EnrollClass></EnrollClass>
         },
         {

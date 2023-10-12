@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet-async";
 const AllInstructor = () => {
   const { data: users = [] } = useQuery(["user"], async () => {
     const res = await fetch(
-      "http://localhost:5000/users?instructor=instructor"
+      "https://server-site-alpha.vercel.app/users?instructor=instructor"
     );
     const result = res.json();
     return result;

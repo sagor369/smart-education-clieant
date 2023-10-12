@@ -4,16 +4,17 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const Items = ({item}) => {
-    const {className, description ,image, instructorName,price, seats } =item
+    const {className, description ,image,email, instructorName,price, seats } =item
     const {user} = useAuth()
     const [axiosSecure] = useAxiosSecure()
 
 
     const addClass = () =>{
-      axiosSecure.post('/add-class', {className, description ,image, instructorName,price, email:user?.email, seats})
+      axiosSecure.post('/add-class', {className, description, instructorEmail: email ,image, instructorName,price, email:user?.email, userName: user?.displayName, seats})
       .then(data => {
        const statuseOk = data.data.insertedId
        if(statuseOk){
+        
         Swal.fire({
           position: 'top-center',
           icon: 'success',
@@ -28,7 +29,7 @@ const Items = ({item}) => {
 
 
   return (
-    <div className="card w-96 bg-base-100 shadow-xl">
+    <div className="card w-full lg:w-96 bg-base-100 shadow-xl">
       <figure>
         <img className="h-48 w-full"
           src={image}

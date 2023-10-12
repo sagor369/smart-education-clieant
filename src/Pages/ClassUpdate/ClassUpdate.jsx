@@ -3,6 +3,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 
 const ClassUpdate = () => {
@@ -24,9 +25,17 @@ const ClassUpdate = () => {
 
     axiosSecure.patch(`/modify-instructor-class/${id}`, {data} ) 
     .then(res =>{
-        console.log(res.data)
+      if(res.data.modifiedCount>0){
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'update successfull',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        refetch()
+      }
     })   
-    console.log(data)
   }
 
 

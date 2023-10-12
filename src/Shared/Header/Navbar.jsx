@@ -1,12 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../public/logo.png";
 import useAuth from "../../Hooks/useAuth";
-import { FaUser } from "react-icons/fa";
+import { FaBars, FaUser } from "react-icons/fa";
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
+  const { user,  logout } = useAuth();
   const navbar = (
     <>
+    {
+    }
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
@@ -20,14 +22,6 @@ const Navbar = () => {
         <>
           <li>
             <NavLink to="/dashboard">Dashboard</NavLink>
-          </li>
-          <li>
-            <Link to='/dashboard/my-class'>
-              <button >
-                My Class
-                <div className="badge badge-secondary">+99</div>
-              </button>
-            </Link>
           </li>
         </>
         : ''
@@ -68,7 +62,7 @@ const Navbar = () => {
       <div className="navbar-start ml-4">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            helo
+            <FaBars className="w-10 h-10"/>
           </label>
           <ul
             tabIndex={0}
@@ -81,7 +75,7 @@ const Navbar = () => {
         <div>
           <button className="flex gap-2">
             <img className="w-10 h-10 rounded" src={logo} alt="" />
-            <h3 className="font-bold text-3xl uppercase">smarty educations</h3>
+            <h3 className="font-bold lg:text-3xl uppercase">smarty educations</h3>
           </button>
         </div>
       </div>

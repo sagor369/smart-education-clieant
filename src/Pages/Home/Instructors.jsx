@@ -4,7 +4,7 @@ import Instructor from "../../Shared/Inatructor/Instructor";
 
 const Instructors = () => {
     const {  data: users=[] } = useQuery(['user'], async()=>{
-        const res = await fetch('http://localhost:5000/users?instructor=instructor')
+        const res = await fetch('https://server-site-alpha.vercel.app/users?instructor=instructor')
         const result =res.json()
         return result
     })
@@ -14,7 +14,7 @@ const Instructors = () => {
 
             <Title title='Instructors'></Title>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-20">
                 {
                     users.slice(0,5).map(instructor => <Instructor
                     key={instructor._id}
