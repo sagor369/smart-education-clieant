@@ -11,11 +11,12 @@ const AllInstructor = () => {
     const result = res.json();
     return result;
   });
+  console.log(users);
   return (
     <div>
       <Helmet>
-                <title>Smart Education | All instructor</title>
-            </Helmet>
+        <title>Smart Education | All instructor</title>
+      </Helmet>
       <div className="flex justify-center mt-20 mb-10 bg-opacity-60 bg-lime-700">
         <Title title={"All Instructors  "}></Title>
       </div>
