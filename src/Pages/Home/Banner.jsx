@@ -26,7 +26,9 @@ const Banner = () => {
               <div className="max-w-md text-white">
                 <h1 className="text-5xl  font-bold">Hello there</h1>
                 <p className="py-6">
-                All our students are taught carefully here, if you want you can take our course from now and register by visiting the link below.
+                  All our students are taught carefully here, if you want you
+                  can take our course from now and register by visiting the link
+                  below.
                 </p>
                 <Link to="/login" className="btn btn-primary">
                   Get Started
@@ -36,7 +38,6 @@ const Banner = () => {
           </div>
         </div>
       ))}
-      
     </AutoplaySlider>
   );
 };
