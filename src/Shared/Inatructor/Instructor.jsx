@@ -8,7 +8,7 @@ const Instructor = ({ item }) => {
     <div className="md:flex rounded-2xl bg-base-100 border border-lime-200 shadow-xl">
       <figure>
         <img
-        className="md:w-52 w-full h-56 rounded-2xl"
+        className="md:w-52 w-full h-56 rounded-s-2xl"
           src={image}
           alt={name}
         />
