@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 const Instructor = ({ item }) => {
   const { image, name, totalClass, email } = item;
-  console.log(totalClass)
 
   return (
     <div className="md:flex rounded-2xl bg-base-100 border border-lime-200 shadow-xl">
